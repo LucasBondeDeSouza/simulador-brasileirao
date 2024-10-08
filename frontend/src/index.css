@@ -5,3 +5,43 @@ header {
 header img {
     height: 3.5em;
 }
+
+main {
+    background-color: #0F151B;
+}
+
+.container .card {
+    background-color: #1C2632;
+}
+
+.dropdown img {
+    height: 1.5em;
+}
+
+.container .card .table p {
+    margin: 0;
+    padding: 0;
+    background-color: #1C2632;
+}
+
+table img {
+    height: 1.5em;
+    margin-right: 10px;
+}
+
+thead th, tbody td {
+    padding-inline: 10px;
+    padding-block: 5px;
+}
+
+td[colSpan="7"] {
+    width: 100%;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background-color: #151B23;
+}
