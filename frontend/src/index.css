@@ -1,3 +1,7 @@
+header {
+    background: linear-gradient(45deg, #3C3B6E 50%, #B22234 50%);
+}
+
 header img {
     height: 3.5em;
 }
