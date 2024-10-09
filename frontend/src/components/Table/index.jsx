@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios'
 
 export default () => {
     const [selectedOption, setSelectedOption] = useState('MLS');
+    const [teams, setTeams] = useState([]);
 
     const handleSelect = (value) => {
         setSelectedOption(value);
     };
+
+    useEffect(() => {
+        const fetchTeams = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/teams');
+                setTeams(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar os times:', error);
+            }
+        };
+
+        fetchTeams();
+    }, []);
 
     return (
         <div className="container">
@@ -22,7 +37,7 @@ export default () => {
                                 aria-expanded="false"
                             >
                                 <img
-                                    src="https://images.mlssoccer.com/image/upload/v1665849438/assets/logos/MLS-Crest-FFF-480px_tmwlkh.png"
+                                    src="https://api.sofascore.app/api/v1/unique-tournament/242/image/dark"
                                     alt=""
                                 />
                                 {selectedOption}
@@ -38,7 +53,7 @@ export default () => {
                         <table className="my-2">
                             <thead className="text-secondary fw-bold">
                                 <tr>
-                                    <th className="">#</th>
+                                    <th className="text-center">#</th>
                                     <th colSpan="7">Time</th>
                                     <th className="text-center">J</th>
                                     <th className="text-center d-none d-sm-table-cell">V</th>
@@ -49,35 +64,26 @@ export default () => {
                                     <th className="text-center">PTS</th>
                                 </tr>
                             </thead>
+                            
                             <tbody className="text-white">
-                                <tr>
-                                    <td>1</td>
-                                    <td colSpan="7">
-                                        <img src="https://api.sofascore.app/api/v1/team/337602/image" alt="" />
-                                        Inter Miami
-                                    </td>
-                                    <td className="text-center">33</td>
-                                    <td className="text-center d-none d-sm-table-cell">21</td>
-                                    <td className="text-center d-none d-sm-table-cell">8</td>
-                                    <td className="text-center d-none d-sm-table-cell">4</td>
-                                    <td className="text-center d-none d-sm-table-cell">73:47</td>
-                                    <td className="text-center d-table-cell d-sm-none">+26</td>
-                                    <td className="text-center">71</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td colSpan="7">
-                                        <img src="https://api.sofascore.app/api/v1/team/2513/image" alt="" />
-                                        LA Galaxy
-                                    </td>
-                                    <td className="text-center">33</td>
-                                    <td className="text-center d-none d-sm-table-cell">19</td>
-                                    <td className="text-center d-none d-sm-table-cell">7</td>
-                                    <td className="text-center d-none d-sm-table-cell">7</td>
-                                    <td className="text-center d-none d-sm-table-cell">68:48</td>
-                                    <td className="text-center d-table-cell d-sm-none">+20</td>
-                                    <td className="text-center">64</td>
-                                </tr>
+                                {teams.map((team, index) => {
+                                    return (
+                                        <tr key={team.id}>
+                                            <td className="text-center fw-bold">{index + 1}</td>
+                                            <td colSpan="7">
+                                                <img src={team.logo_url} alt={`Logo ${team.name}`} />
+                                                {team.name}
+                                            </td>
+                                            <td className="text-center">0</td>
+                                            <td className="text-center d-none d-sm-table-cell">0</td>
+                                            <td className="text-center d-none d-sm-table-cell">0</td>
+                                            <td className="text-center d-none d-sm-table-cell">0</td>
+                                            <td className="text-center d-none d-sm-table-cell">0:0</td>
+                                            <td className="text-center d-table-cell d-sm-none">0</td>
+                                            <td className="text-center">0</td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </div>
