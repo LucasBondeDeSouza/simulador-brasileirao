@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
-import Table from "./components/Table";
+import Standings from "./components/Standings"
 
 export default () => {
 
@@ -9,7 +9,7 @@ export default () => {
       <Header />
 
       <main className="min-vh-100">
-        <Table />
+        <Standings />
       </main>
     </>
   )
