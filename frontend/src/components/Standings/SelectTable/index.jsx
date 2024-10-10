@@ -19,7 +19,7 @@ export default ({ selectedOption, setSelectedOption }) => {
                 >
                     <img
                         src="https://api.sofascore.app/api/v1/unique-tournament/242/image/dark"
-                        alt=""
+                        alt="Logo MLS"
                     />
                     {selectedOption}
                 </button>

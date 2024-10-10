@@ -15,10 +15,19 @@ app.post('/api/standings', async (req, res) => {
 
     try {
         if (option !== 'MLS') {
-            const result = await db.query('SELECT * FROM teams WHERE conference = $1 ORDER BY id', [option]);
+            const result = await db.query(`
+                SELECT teams.id, teams.name, teams.logo_url, standings.games, standings.wins, standings.draws, standings.losses, standings.goals_for, standings.goals_against, standings.goal_difference, standings.points
+                FROM teams
+                INNER JOIN standings ON teams.id = standings.team_id
+                WHERE conference = $1;
+            `, [option]);
             res.json(result.rows);
         } else {
-            const result = await db.query('SELECT * FROM teams ORDER BY id');
+            const result = await db.query(`
+                SELECT teams.id, teams.name, teams.logo_url, standings.games, standings.wins, standings.draws, standings.losses, standings.goals_for, standings.goals_against, standings.goal_difference, standings.points
+                FROM teams
+                INNER JOIN standings ON teams.id = standings.team_id
+            `);
             res.json(result.rows);
         }
     } catch (error) {

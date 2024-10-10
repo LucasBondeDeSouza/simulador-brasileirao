@@ -43,13 +43,13 @@ export default ({ selectedOption }) => {
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />
                             {team.name}
                         </td>
-                        <td className="text-center">0</td>
-                        <td className="text-center d-none d-sm-table-cell">0</td>
-                        <td className="text-center d-none d-sm-table-cell">0</td>
-                        <td className="text-center d-none d-sm-table-cell">0</td>
-                        <td className="text-center d-none d-sm-table-cell">0:0</td>
-                        <td className="text-center d-table-cell d-sm-none">0</td>
-                        <td className="text-center">0</td>
+                        <td className="text-center">{team.games}</td>
+                        <td className="text-center d-none d-sm-table-cell">{team.wins}</td>
+                        <td className="text-center d-none d-sm-table-cell">{team.draws}</td>
+                        <td className="text-center d-none d-sm-table-cell">{team.losses}</td>
+                        <td className="text-center d-none d-sm-table-cell">{team.goals_for}:{team.goals_against}</td>
+                        <td className="text-center d-table-cell d-sm-none">{team.goal_difference}</td>
+                        <td className="text-center">{team.points}</td>
                     </tr>
                 ))}
             </tbody>
