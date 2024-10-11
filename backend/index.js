@@ -11,8 +11,6 @@ app.use(express.json());
 app.post('/api/standings', async (req, res) => {
     const { option } = req.body;
 
-    console.log(option)
-
     try {
         if (option !== 'MLS') {
             const result = await db.query(`
