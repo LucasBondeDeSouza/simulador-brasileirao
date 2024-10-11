@@ -5,19 +5,18 @@ export default ({ selectedOption }) => {
     const [teams, setTeams] = useState([]);
 
     useEffect(() => {
-        const fetchTeams = async () => {
-            try {
-                const response = await axios.post('http://localhost:5000/api/standings', {
-                    option: selectedOption
-                });
-                setTeams(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar os times:', error);
-            }
-        };
+        axios.get('http://localhost:5000/api/standings')
+            .then(response => {
+                setTeams(response.data)
+            })
+            .catch(error => {
+            console.error("Error fetching matches: ", error);
+        });
+    }, []);
 
-        fetchTeams();
-    }, [selectedOption]);
+    const filteredTeams = selectedOption === 'MLS'
+        ? teams
+        : teams.filter(team => team.conference === selectedOption);
 
     return (
         <table className="my-2">
@@ -36,7 +35,7 @@ export default ({ selectedOption }) => {
             </thead>
 
             <tbody className="text-white">
-                {teams.map((team, index) => (
+                {filteredTeams.map((team, index) => (
                     <tr key={team.id}>
                         <td className="text-center fw-bold">{index + 1}</td>
                         <td colSpan="7">

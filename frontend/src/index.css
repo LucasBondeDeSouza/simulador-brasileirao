@@ -45,3 +45,36 @@ tbody tr {
 tbody tr:hover {
     background-color: #151B23;
 }
+
+.round button {
+    background-color: transparent;
+    border: none;
+}
+
+.info-teams {
+    width: 27%;
+}
+
+.games img {
+    height: 3em;
+}
+
+.score, .games input {
+    font-size: 1.5rem;
+}
+
+.games input {
+    background-color: #0F151B;
+    border: none;
+    border-radius: 5px;
+    width: 30px;
+    height: 35px;
+    text-align: center;
+    color: #fff;
+}
+
+.games input[type=number]::-webkit-inner-spin-button, 
+.games input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}

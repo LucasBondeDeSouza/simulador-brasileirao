@@ -8,31 +8,46 @@ const PORT = 5000
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/standings', async (req, res) => {
-    const { option } = req.body;
+app.get('/api/standings', async (req, res) => {
 
     try {
-        if (option !== 'MLS') {
-            const result = await db.query(`
-                SELECT teams.id, teams.name, teams.logo_url, standings.games, standings.wins, standings.draws, standings.losses, standings.goals_for, standings.goals_against, standings.goal_difference, standings.points
-                FROM teams
-                INNER JOIN standings ON teams.id = standings.team_id
-                WHERE conference = $1;
-            `, [option]);
-            res.json(result.rows);
-        } else {
-            const result = await db.query(`
-                SELECT teams.id, teams.name, teams.logo_url, standings.games, standings.wins, standings.draws, standings.losses, standings.goals_for, standings.goals_against, standings.goal_difference, standings.points
-                FROM teams
-                INNER JOIN standings ON teams.id = standings.team_id
-            `);
-            res.json(result.rows);
-        }
+        const result = await db.query(`
+            SELECT teams.id, teams.name, teams.logo_url, teams.conference, standings.games, standings.wins, standings.draws, standings.losses, standings.goals_for, standings.goals_against, standings.goal_difference, standings.points
+            FROM teams
+            INNER JOIN standings ON teams.id = standings.team_id
+        `);
+
+        console.log(result.rows)
+        res.json(result.rows);
     } catch (error) {
         console.error('Erro ao buscar os dados:', error);
         res.status(500).json({ error: 'Erro ao buscar os dados' });
     }
 });
+
+app.get('/api/matches', async (req, res) => {
+
+    try {
+        const result = await db.query(`
+            SELECT
+                matches.id AS match_id,
+                home_team.alternative_name AS home_team_name,
+                home_team.logo_url AS home_team_logo,
+                away_team.alternative_name AS away_team_name,
+                away_team.logo_url AS away_team_logo,
+                matches.home_score,
+                matches.away_score,
+                matches.round
+            FROM matches
+            JOIN teams AS home_team ON matches.home_team_id = home_team.id
+            JOIN teams AS away_team ON matches.away_team_id = away_team.id;
+        `)
+
+        res.json(result.rows)
+    } catch (err) {
+        console.error(err);
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import Standings from "./components/Standings"
+import Matches from "./components/Matches";
 
 export default () => {
 
@@ -9,7 +10,12 @@ export default () => {
       <Header />
 
       <main className="min-vh-100">
-        <Standings />
+        <div className="container">
+          <div className="row">
+            <Standings />
+            <Matches />
+          </div>
+        </div>
       </main>
     </>
   )
