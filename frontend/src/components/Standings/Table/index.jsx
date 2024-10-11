@@ -37,7 +37,7 @@ export default ({ selectedOption }) => {
             <tbody className="text-white">
                 {filteredTeams.map((team, index) => (
                     <tr key={team.id}>
-                        <td className="text-center fw-bold">{index + 1}</td>
+                        <td className={`text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />
                             {team.name}

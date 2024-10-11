@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default () => {
+export default ({ round }) => {
     const [matches, setMatches] = useState([]);
 
     useEffect(() => {
@@ -15,9 +15,11 @@ export default () => {
             });
     }, []);
 
+    const filteredRound = matches.filter(match => match.round === round);
+
     return (
         <>
-            {matches.map(match => (
+            {filteredRound.map(match => (
                 <div key={match.match_id} className="border-top border-secondary p-3 d-flex align-items-center justify-content-between gap-2 games">
                     <div className="d-flex align-items-center justify-content-between gap-3 info-teams">
                         <img src={match.home_team_logo} alt={match.home_team_name} />
