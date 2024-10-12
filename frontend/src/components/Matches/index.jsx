@@ -3,7 +3,7 @@ import Round from "./Round";
 import Games from "./Games";
 
 export default () => {
-    const [round, setRound] = useState(1)
+    const [round, setRound] = useState(3)
 
     return (
         <div className="col-12 col-lg-5">
