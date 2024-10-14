@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from 'axios';
 
-export default ({ selectedOption }) => {
-    const [teams, setTeams] = useState([]);
+export default ({ sortTeams, selectedOption, teams, setTeams, teamWinner, teamLosses, }) => {
 
-    useEffect(() => {
+    const fetchStandings = () => {
         axios.get('http://localhost:5000/api/standings')
             .then(response => {
-                const sortedTeams = response.data.sort((a, b) => {
-                    // 1. Pontos (maior para menor)
-                    if (b.points !== a.points) return b.points - a.points;
-                    // 2. Vitórias (maior para menor)
-                    if (b.wins !== a.wins) return b.wins - a.wins;
-                    // 3. Diferença de gols (maior para menor)
-                    if (b.goal_difference !== a.goal_difference) return b.goal_difference - a.goal_difference;
-                    // 4. Gols marcados (maior para menor)
-                    if (b.goals_for !== a.goals_for) return b.goals_for - a.goals_for;
-                    // 5. Outros critérios podem ser adicionados aqui
-                    return 0; // Caso todos os critérios sejam iguais
-                });
+                const sortedTeams = sortTeams(response.data);
                 setTeams(sortedTeams);
             })
             .catch(error => {
                 console.error("Error fetching matches: ", error);
             });
+    };
+
+    useEffect(() => {
+        fetchStandings();
     }, []);
 
     const filteredTeams = selectedOption === 'MLS'
@@ -48,7 +40,7 @@ export default ({ selectedOption }) => {
 
             <tbody className="text-white">
                 {filteredTeams.map((team, index) => (
-                    <tr key={team.id}>
+                    <tr key={team.id} onClick={() => teamWinner(team.id)}>
                         <td className={`text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />

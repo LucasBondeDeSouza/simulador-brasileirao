@@ -8,7 +8,6 @@ export default ({ round }) => {
         axios.get('http://localhost:5000/api/matches')
             .then(response => {
                 setMatches(response.data);
-                console.log(response.data)
             })
             .catch(error => {
                 console.error("Error fetching matches: ", error);
@@ -21,6 +20,7 @@ export default ({ round }) => {
         <>
             {filteredRound.map(match => (
                 <div key={match.match_id} className="border-top border-secondary p-3 d-flex align-items-center justify-content-between gap-2 games">
+                    <p className="text-white">{match.match_id}</p>
                     <div className="d-flex align-items-center justify-content-between gap-3 info-teams">
                         <img src={match.home_team_logo} alt={match.home_team_name} />
                         <p className="text-white fs-5 mb-0">{match.home_team_name}</p>
@@ -47,5 +47,5 @@ export default ({ round }) => {
                 </div>
             ))}
         </>
-    )
-}
+    );
+};

@@ -26,13 +26,14 @@ app.get('/api/standings', async (req, res) => {
 });
 
 app.get('/api/matches', async (req, res) => {
-
     try {
         const result = await db.query(`
             SELECT
                 matches.id AS match_id,
+                home_team.id AS home_team_id,
                 home_team.alternative_name AS home_team_name,
                 home_team.logo_url AS home_team_logo,
+                away_team.id AS away_team_id,
                 away_team.alternative_name AS away_team_name,
                 away_team.logo_url AS away_team_logo,
                 matches.home_score,
@@ -41,13 +42,14 @@ app.get('/api/matches', async (req, res) => {
             FROM matches
             JOIN teams AS home_team ON matches.home_team_id = home_team.id
             JOIN teams AS away_team ON matches.away_team_id = away_team.id;
-        `)
+        `);
 
-        res.json(result.rows)
+        res.json(result.rows);
     } catch (err) {
         console.error(err);
+        res.status(500).json({ error: 'Internal server error' }); // Enviando uma resposta de erro adequada
     }
-})
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
