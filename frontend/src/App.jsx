@@ -5,88 +5,39 @@ import Matches from "./components/Matches";
 
 export default () => {
   const [teams, setTeams] = useState([]);
+  const [scores, setScores] = useState([])
 
   const updatedTable = (home_id, away_id, home_score, away_score) => {
-    const updatedTeams = prevTeams.map(team => {
-      // Vitória mandante
-      if (home_score > away_score) {
-        if (team.id === home_id) {
-          return {
-            ...team,
-            games: team.games + 1,
-            wins: team.wins + 1,
-            goals_for: team.goals_for + home_score,
-            goals_against: team.goals_against + away_score,
-            goal_difference: (team.goals_for + home_score) - (team.goals_against + away_score),
-            points: team.points + 3
-          }
-        }
-        // Vitória visitante
-      } else if (away_score > home_score) {
-        if (team.id === away_id) {
-          return {
-            ...team,
-            games: team.games + 1,
-            wins: team.wins + 1,
-            goals_for: team.goals_for + away_score,
-            goals_against: team.goals_against + home_score,
-            goal_difference: (team.goals_for + away_score) - (team.goals_against + home_score),
-            points: team.points + 3
-          }
-        }
-        // Empate
-      } 
+    const updateTeamStats = (team, isHome) => {
+      const goalsFor = isHome ? home_score : away_score;
+      const goalsAgainst = isHome ? away_score : home_score;
 
-      return teams
-    })
+      return {
+        ...team,
+        games: team.games + 1,
+        goals_for: team.goals_for + goalsFor,
+        goals_against: team.goals_against + goalsAgainst,
+        goal_difference: (team.goals_for + goalsFor) - (team.goals_against + goalsAgainst),
+        points: team.points + (isHome ? (home_score > away_score ? 3 : (home_score === away_score ? 1 : 0)) : (away_score > home_score ? 3 : (away_score === home_score ? 1 : 0))),
+        wins: team.wins + (isHome ? (home_score > away_score ? 1 : 0) : (away_score > home_score ? 1 : 0)),
+        draws: team.draws + (home_score === away_score ? 1 : 0),
+      };
+    };
 
-    return sortTeams(updatedTeams);
-  }
-
-  const teamWinner = (team_id) => {
-    // Atualiza a tabela localmente e reordena os times
-    setTeams(prevTeams => {
-      const updatedTeams = prevTeams.map(team => {
-        if (team.id === team_id) {
-          return {
-            ...team,
-            games: team.games + 1,
-            wins: team.wins + 1,
-            goals_for: team.goals_for + 2,
-            goals_against: team.goals_against + 1,
-            goal_difference: (team.goals_for + 2) - (team.goals_against + 1),
-            points: team.points + 3
-          };
-        }
-        return team;
-      });
-      return sortTeams(updatedTeams); // Ordena os times após a atualização
+    const updatedTeams = teams.map(team => {
+      if (team.id === home_id) {
+        return updateTeamStats(team, true); // Atualiza os dados do time mandante
+      } else if (team.id === away_id) {
+        return updateTeamStats(team, false); // Atualiza os dados do time visitante
+      }
+      return team; // Retorna o time inalterado se não for nem mandante nem visitante
     });
+
+    const sortedTeams = sortTeams(updatedTeams); // Ordena as equipes
+    setTeams(sortedTeams); // Atualiza o estado com as equipes ordenadas
+
+    return sortedTeams; // Retorna as equipes ordenadas
   };
-
-  const teamLosses = (team_id) => {
-    // Atualiza a tabela localmente e reordena os times
-    setTeams(prevTeams => {
-      const updatedTeams = prevTeams.map(team => {
-        if (team.id === team_id) {
-          return {
-            ...team,
-            games: team.games + 1,
-            losses: team.losses + 1,
-            goals_for: team.goals_for + 1,
-            goals_against: team.goals_against + 2,
-            goal_difference: (team.goals_for + 1) - (team.goals_against + 2)
-          }
-        }
-        return team
-      })
-      return sortTeams(updatedTeams); // Ordena os times após a atualização
-    })
-  }
-
-  const draw = (home_id, away_id) => {
-
-  }
 
   const sortTeams = (teams) => {
     return teams.sort((a, b) => {
@@ -103,10 +54,21 @@ export default () => {
       <Header />
 
       <main className="min-vh-100">
+        <div className="">
+          {scores.map((score, index) => (
+            <div className="d-flex gap-2" key={index}>
+              <p className="text-white">ID MATCH: <span className="text-success">{score.match_id}</span></p>
+              <p className="text-white">ID HOME: {score.home_team_id}</p>
+              <p className="text-white">HOME SCORE: {score.home_score}</p>
+              <p className="text-white">AWAY ID: {score.away_team_id}</p>
+              <p className="text-white">AWAY SCORE: {score.away_score}</p>
+            </div>
+          ))}
+        </div>
         <div className="container">
           <div className="row">
-            <Standings sortTeams={sortTeams} teamWinner={teamWinner} teamLosses={teamLosses} teams={teams} setTeams={setTeams} />
-            <Matches />
+            <Standings sortTeams={sortTeams} teams={teams} setTeams={setTeams} />
+            <Matches setScores={setScores} updatedTable={updatedTable} />
           </div>
         </div>
       </main>

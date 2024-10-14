@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default ({ round }) => {
+export default ({ round, setScores, updatedTable }) => {
     const [matches, setMatches] = useState([]);
 
     useEffect(() => {
@@ -16,6 +16,47 @@ export default ({ round }) => {
 
     const filteredRound = matches.filter(match => match.round === round);
 
+    const updateScores = (match_id, team_id, type, value) => {
+        setScores(prevScores => {
+            const updatedScores = [...prevScores];
+            const matchIndex = updatedScores.findIndex(score => score.match_id === match_id);
+            
+            if (matchIndex !== -1) {
+                updatedScores[matchIndex][type] = value;
+            } else {
+                updatedScores.push({
+                    match_id: match_id,
+                    home_team_id: team_id.home,
+                    home_score: type === 'home_score' ? value : null,
+                    away_team_id: team_id.away,
+                    away_score: type === 'away_score' ? value : null
+                });
+            }
+    
+            // Chama updatedTable apenas uma vez com os scores atualizados
+            const homeScore = updatedScores.find(score => score.match_id === match_id)?.home_score;
+            const awayScore = updatedScores.find(score => score.match_id === match_id)?.away_score;
+    
+            if (homeScore !== null && awayScore !== null) {
+                updatedTable(team_id.home, team_id.away, homeScore, awayScore);
+            }
+    
+            // Enviar os dados atualizados
+            setScores(updatedScores);
+            return updatedScores;
+        });
+    };    
+
+    const handleHomeScoreChange = (e, match) => {
+        const homeScore = parseInt(e.target.value) || 0; // Converte o valor para um número
+        updateScores(match.match_id, { home: match.home_team_id, away: match.away_team_id }, 'home_score', homeScore);
+    };
+    
+    const handleAwayScoreChange = (e, match) => {
+        const awayScore = parseInt(e.target.value) || 0; // Converte o valor para um número
+        updateScores(match.match_id, { home: match.home_team_id, away: match.away_team_id }, 'away_score', awayScore);
+    };
+
     return (
         <>
             {filteredRound.map(match => (
@@ -29,13 +70,13 @@ export default ({ round }) => {
                     <div className="d-flex align-items-center gap-2">
                         {
                             match.home_score == null ?
-                            <input type="number" name="home_score" /> :
+                            <input type="number" name="home_score" onChange={(e) => handleHomeScoreChange(e, match)} /> :
                             <p className="text-white m-0 score">{match.home_score}</p>
                         }
                         <p className="text-white fs-5 mb-0">X</p>
                         {
                             match.away_score == null ?
-                            <input type="number" name="away_score" /> :
+                            <input type="number" name="away_score" onChange={(e) => handleAwayScoreChange(e, match)} /> :
                             <p className="text-white m-0 score">{match.away_score}</p>
                         }
                     </div>

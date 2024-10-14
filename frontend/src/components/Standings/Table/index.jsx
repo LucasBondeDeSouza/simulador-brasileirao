@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from 'axios';
 
-export default ({ sortTeams, selectedOption, teams, setTeams, teamWinner, teamLosses, }) => {
+export default ({ sortTeams, selectedOption, teams, setTeams }) => {
 
     const fetchStandings = () => {
         axios.get('http://localhost:5000/api/standings')
@@ -40,7 +40,7 @@ export default ({ sortTeams, selectedOption, teams, setTeams, teamWinner, teamLo
 
             <tbody className="text-white">
                 {filteredTeams.map((team, index) => (
-                    <tr key={team.id} onClick={() => teamWinner(team.id)}>
+                    <tr key={team.id}>
                         <td className={`text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />
