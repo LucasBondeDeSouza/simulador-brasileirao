@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
-import Standings from "./components/Standings"
+import Standings from "./components/Standings";
 import Matches from "./components/Matches";
 
 export default () => {
   const [teams, setTeams] = useState([]);
-  const [scores, setScores] = useState([])
+  const [scores, setScores] = useState([]);
 
   const updatedTable = (home_id, away_id, home_score, away_score) => {
     const updateTeamStats = (team, isHome) => {
@@ -21,6 +21,7 @@ export default () => {
         points: team.points + (isHome ? (home_score > away_score ? 3 : (home_score === away_score ? 1 : 0)) : (away_score > home_score ? 3 : (away_score === home_score ? 1 : 0))),
         wins: team.wins + (isHome ? (home_score > away_score ? 1 : 0) : (away_score > home_score ? 1 : 0)),
         draws: team.draws + (home_score === away_score ? 1 : 0),
+        losses: team.losses + (isHome ? (home_score < away_score ? 1 : 0) : (away_score < home_score ? 1 : 0)) // Incrementa as derrotas
       };
     };
 
@@ -73,5 +74,5 @@ export default () => {
         </div>
       </main>
     </>
-  )
-}
+  );
+};

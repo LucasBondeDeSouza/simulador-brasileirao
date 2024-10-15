@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default ({ round, setScores, updatedTable }) => {
     const [matches, setMatches] = useState([]);
+    const [storedScores, setStoredScores] = useState({});
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/matches')
@@ -33,28 +34,34 @@ export default ({ round, setScores, updatedTable }) => {
                 });
             }
     
-            // Chama updatedTable apenas uma vez com os scores atualizados
             const homeScore = updatedScores.find(score => score.match_id === match_id)?.home_score;
             const awayScore = updatedScores.find(score => score.match_id === match_id)?.away_score;
     
             if (homeScore !== null && awayScore !== null) {
+                // Chama updatedTable com os IDs corretos
                 updatedTable(team_id.home, team_id.away, homeScore, awayScore);
             }
-    
-            // Enviar os dados atualizados
+
             setScores(updatedScores);
             return updatedScores;
         });
-    };    
-
-    const handleHomeScoreChange = (e, match) => {
-        const homeScore = parseInt(e.target.value) || 0; // Converte o valor para um número
-        updateScores(match.match_id, { home: match.home_team_id, away: match.away_team_id }, 'home_score', homeScore);
     };
-    
-    const handleAwayScoreChange = (e, match) => {
-        const awayScore = parseInt(e.target.value) || 0; // Converte o valor para um número
-        updateScores(match.match_id, { home: match.home_team_id, away: match.away_team_id }, 'away_score', awayScore);
+
+    const handleScoreChange = (match_id, team, score, home_team_id, away_team_id) => {
+        const parsedScore = score.trim() === '' ? null : parseInt(score); 
+        const type = team === 'home' ? 'home_score' : 'away_score';
+        
+        // Atualiza os storedScores localmente
+        setStoredScores(prevScores => ({
+            ...prevScores,
+            [match_id]: {
+                ...prevScores[match_id],
+                [team]: parsedScore
+            }
+        }));
+
+        // Passa os IDs corretos para updateScores e updateTable
+        updateScores(match_id, { home: home_team_id, away: away_team_id }, type, parsedScore);
     };
 
     return (
@@ -70,13 +77,23 @@ export default ({ round, setScores, updatedTable }) => {
                     <div className="d-flex align-items-center gap-2">
                         {
                             match.home_score == null ?
-                            <input type="number" name="home_score" onChange={(e) => handleHomeScoreChange(e, match)} /> :
+                            <input
+                                type="number"
+                                name="home_score"
+                                value={storedScores[match.match_id]?.home ?? ''}
+                                onChange={(e) => handleScoreChange(match.match_id, 'home', e.target.value, match.home_team_id, match.away_team_id)}
+                            /> :
                             <p className="text-white m-0 score">{match.home_score}</p>
                         }
                         <p className="text-white fs-5 mb-0">X</p>
                         {
                             match.away_score == null ?
-                            <input type="number" name="away_score" onChange={(e) => handleAwayScoreChange(e, match)} /> :
+                            <input
+                                type="number"
+                                name="away_score"
+                                value={storedScores[match.match_id]?.away ?? ''}
+                                onChange={(e) => handleScoreChange(match.match_id, 'away', e.target.value, match.home_team_id, match.away_team_id)}
+                            /> :
                             <p className="text-white m-0 score">{match.away_score}</p>
                         }
                     </div>
