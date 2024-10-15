@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default ({ round, setScores, updatedTable }) => {
+export default ({ round, setScores, updatedTable, setHighlightedTeams }) => {
     const [matches, setMatches] = useState([]);
     const [storedScores, setStoredScores] = useState({});
 
@@ -60,8 +60,18 @@ export default ({ round, setScores, updatedTable }) => {
             }
         }));
 
-        // Passa os IDs corretos para updateScores e updateTable
+        // Passa os IDs corretos para updateScores
         updateScores(match_id, { home: home_team_id, away: away_team_id }, type, parsedScore);
+    };
+
+    const handleFocus = (home_team_id, away_team_id) => {
+        // Destaca os times quando o input é focado
+        setHighlightedTeams([home_team_id, away_team_id]);
+    };
+
+    const handleBlur = () => {
+        // Limpa o destaque quando o input perde o foco
+        setHighlightedTeams([]);
     };
 
     return (
@@ -82,6 +92,8 @@ export default ({ round, setScores, updatedTable }) => {
                                 name="home_score"
                                 value={storedScores[match.match_id]?.home ?? ''}
                                 onChange={(e) => handleScoreChange(match.match_id, 'home', e.target.value, match.home_team_id, match.away_team_id)}
+                                onFocus={() => handleFocus(match.home_team_id, match.away_team_id)} // Destaca ao focar
+                                onBlur={handleBlur} // Remove destaque ao desfocar
                             /> :
                             <p className="text-white m-0 score">{match.home_score}</p>
                         }
@@ -93,6 +105,8 @@ export default ({ round, setScores, updatedTable }) => {
                                 name="away_score"
                                 value={storedScores[match.match_id]?.away ?? ''}
                                 onChange={(e) => handleScoreChange(match.match_id, 'away', e.target.value, match.home_team_id, match.away_team_id)}
+                                onFocus={() => handleFocus(match.home_team_id, match.away_team_id)} // Destaca ao focar
+                                onBlur={handleBlur} // Remove destaque ao desfocar
                             /> :
                             <p className="text-white m-0 score">{match.away_score}</p>
                         }

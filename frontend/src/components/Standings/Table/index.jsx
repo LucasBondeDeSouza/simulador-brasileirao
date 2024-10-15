@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from 'axios';
 
-export default ({ sortTeams, selectedOption, teams, setTeams }) => {
+export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }) => {
 
     const fetchStandings = () => {
         axios.get('http://localhost:5000/api/standings')
@@ -40,7 +40,10 @@ export default ({ sortTeams, selectedOption, teams, setTeams }) => {
 
             <tbody className="text-white">
                 {filteredTeams.map((team, index) => (
-                    <tr key={team.id}>
+                    <tr 
+                        key={team.id} 
+                        className={highlightedTeams.includes(team.id) ? 'highlighted-row' : ''}
+                    >
                         <td className={`text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />

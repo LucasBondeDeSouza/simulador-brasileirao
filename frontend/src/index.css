@@ -46,6 +46,10 @@ tbody tr:hover {
     background-color: #151B23;
 }
 
+.highlighted-row {
+    background-color: rgba(67, 76, 100, 0.7);
+}
+
 .round button {
     background-color: transparent;
     border: none;

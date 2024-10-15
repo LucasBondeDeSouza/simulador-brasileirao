@@ -6,6 +6,9 @@ import Matches from "./components/Matches";
 export default () => {
   const [teams, setTeams] = useState([]);
   const [scores, setScores] = useState([]);
+  const [highlightedTeams, setHighlightedTeams] = useState([]);
+
+  console.log(highlightedTeams)
 
   const updatedTable = (home_id, away_id, home_score, away_score) => {
     const updateTeamStats = (team, isHome) => {
@@ -68,8 +71,8 @@ export default () => {
         </div>
         <div className="container">
           <div className="row">
-            <Standings sortTeams={sortTeams} teams={teams} setTeams={setTeams} />
-            <Matches setScores={setScores} updatedTable={updatedTable} />
+            <Standings sortTeams={sortTeams} teams={teams} setTeams={setTeams} highlightedTeams={highlightedTeams} />
+            <Matches setScores={setScores} updatedTable={updatedTable} setHighlightedTeams={setHighlightedTeams} />
           </div>
         </div>
       </main>
