@@ -24,10 +24,10 @@ export default ({ round, setRound }) => {
 
             <h3 className="text-white text-center">Round {round > 0 && round < 10 ? `0${round}` : round}</h3>
             
-            <button onClick={round == 39 ? null : addRound} >
+            <button onClick={round == 38 ? null : addRound} >
                 <FontAwesomeIcon 
                     icon={faArrowRight} 
-                    className={`fs-5 ${round == 39 ? 'text-secondary' : 'text-white'}`} 
+                    className={`fs-5 ${round == 38 ? 'text-secondary' : 'text-white'}`} 
                 />
             </button>
         </div>

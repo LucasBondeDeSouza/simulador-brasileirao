@@ -44,7 +44,7 @@ export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }
                         key={team.id} 
                         className={highlightedTeams.includes(team.id) ? 'highlighted-row' : ''}
                     >
-                        <td className={`text-center fw-bold`}>{index + 1}</td>
+                        <td className={`${index < 4 ? 'text-success' : ''} ${index > 15 ? 'text-danger' : ''} text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />
                             {team.name}

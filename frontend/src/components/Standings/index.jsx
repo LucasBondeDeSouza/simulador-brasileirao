@@ -8,7 +8,7 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams }) => {
     return (
         <div className="col-12 col-lg-7">
             <div className="card shadow mt-5">
-                <SelectTable selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+                {/*<SelectTable selectedOption={selectedOption} setSelectedOption={setSelectedOption} />*/}
                 <Table sortTeams={sortTeams} selectedOption={selectedOption} teams={teams} setTeams={setTeams} highlightedTeams={highlightedTeams} /> 
             </div>
         </div>

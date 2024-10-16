@@ -3,7 +3,7 @@ import Round from "./Round";
 import Games from "./Games";
 
 export default ({ setScores, updatedTable, setHighlightedTeams }) => {
-    const [round, setRound] = useState(5)
+    const [round, setRound] = useState(30)
 
     return (
         <div className="col-12 col-lg-5">

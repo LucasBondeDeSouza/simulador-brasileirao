@@ -8,8 +8,6 @@ export default () => {
   const [scores, setScores] = useState([]);
   const [highlightedTeams, setHighlightedTeams] = useState([]);
 
-  console.log(highlightedTeams)
-
   const updatedTable = (home_id, away_id, home_score, away_score) => {
     const updateTeamStats = (team, isHome) => {
       const goalsFor = isHome ? home_score : away_score;
@@ -59,7 +57,7 @@ export default () => {
 
       <main className="min-vh-100">
         <div className="">
-          {scores.map((score, index) => (
+          {/*{scores.map((score, index) => (
             <div className="d-flex gap-2" key={index}>
               <p className="text-white">ID MATCH: <span className="text-success">{score.match_id}</span></p>
               <p className="text-white">ID HOME: {score.home_team_id}</p>
@@ -67,7 +65,7 @@ export default () => {
               <p className="text-white">AWAY ID: {score.away_team_id}</p>
               <p className="text-white">AWAY SCORE: {score.away_score}</p>
             </div>
-          ))}
+          ))}*/}
         </div>
         <div className="container">
           <div className="row">
