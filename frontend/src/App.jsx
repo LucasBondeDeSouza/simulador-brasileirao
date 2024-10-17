@@ -9,9 +9,27 @@ export default () => {
   const [highlightedTeams, setHighlightedTeams] = useState([]);
 
   const updatedTable = (home_id, away_id, home_score, away_score) => {
+    const resetTeamStats = (team) => {
+      return {
+        ...team,
+        games: team.games - 1,
+        goals_for: team.goals_for - (team.last_goals_for || 0),
+        goals_against: team.goals_against - (team.last_goals_against || 0),
+        goal_difference: team.goal_difference - (team.last_goals_for || 0) + (team.last_goals_against || 0),
+        points: team.points - (team.last_points || 0),
+        wins: team.wins - (team.last_win || 0),
+        draws: team.draws - (team.last_draw || 0),
+        losses: team.losses - (team.last_loss || 0)
+      };
+    };
+
     const updateTeamStats = (team, isHome) => {
       const goalsFor = isHome ? home_score : away_score;
       const goalsAgainst = isHome ? away_score : home_score;
+      const points = isHome ? (home_score > away_score ? 3 : (home_score === away_score ? 1 : 0)) : (away_score > home_score ? 3 : (away_score === home_score ? 1 : 0));
+      const win = isHome ? (home_score > away_score ? 1 : 0) : (away_score > home_score ? 1 : 0);
+      const draw = (home_score === away_score ? 1 : 0);
+      const loss = isHome ? (home_score < away_score ? 1 : 0) : (away_score < home_score ? 1 : 0);
 
       return {
         ...team,
@@ -19,18 +37,26 @@ export default () => {
         goals_for: team.goals_for + goalsFor,
         goals_against: team.goals_against + goalsAgainst,
         goal_difference: (team.goals_for + goalsFor) - (team.goals_against + goalsAgainst),
-        points: team.points + (isHome ? (home_score > away_score ? 3 : (home_score === away_score ? 1 : 0)) : (away_score > home_score ? 3 : (away_score === home_score ? 1 : 0))),
-        wins: team.wins + (isHome ? (home_score > away_score ? 1 : 0) : (away_score > home_score ? 1 : 0)),
-        draws: team.draws + (home_score === away_score ? 1 : 0),
-        losses: team.losses + (isHome ? (home_score < away_score ? 1 : 0) : (away_score < home_score ? 1 : 0)) // Incrementa as derrotas
+        points: team.points + points,
+        wins: team.wins + win,
+        draws: team.draws + draw,
+        losses: team.losses + loss,
+        last_goals_for: goalsFor,
+        last_goals_against: goalsAgainst,
+        last_points: points,
+        last_win: win,
+        last_draw: draw,
+        last_loss: loss
       };
     };
 
     const updatedTeams = teams.map(team => {
       if (team.id === home_id) {
-        return updateTeamStats(team, true); // Atualiza os dados do time mandante
+        const resetTeam = resetTeamStats(team);
+        return updateTeamStats(resetTeam, true); // Atualiza os dados do time mandante
       } else if (team.id === away_id) {
-        return updateTeamStats(team, false); // Atualiza os dados do time visitante
+        const resetTeam = resetTeamStats(team);
+        return updateTeamStats(resetTeam, false); // Atualiza os dados do time visitante
       }
       return team; // Retorna o time inalterado se não for nem mandante nem visitante
     });
@@ -56,17 +82,6 @@ export default () => {
       <Header />
 
       <main className="min-vh-100">
-        <div className="">
-          {/*{scores.map((score, index) => (
-            <div className="d-flex gap-2" key={index}>
-              <p className="text-white">ID MATCH: <span className="text-success">{score.match_id}</span></p>
-              <p className="text-white">ID HOME: {score.home_team_id}</p>
-              <p className="text-white">HOME SCORE: {score.home_score}</p>
-              <p className="text-white">AWAY ID: {score.away_team_id}</p>
-              <p className="text-white">AWAY SCORE: {score.away_score}</p>
-            </div>
-          ))}*/}
-        </div>
         <div className="container">
           <div className="row">
             <Standings sortTeams={sortTeams} teams={teams} setTeams={setTeams} highlightedTeams={highlightedTeams} />
