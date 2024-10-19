@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default ({ round, setScores, updatedTable, setHighlightedTeams }) => {
+export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, removeScore }) => {
     const [matches, setMatches] = useState([]);
     const [storedScores, setStoredScores] = useState({});
 
@@ -17,41 +17,9 @@ export default ({ round, setScores, updatedTable, setHighlightedTeams }) => {
 
     const filteredRound = matches.filter(match => match.round === round);
 
-    const updateScores = (match_id, team_id, type, value) => {
-        setScores(prevScores => {
-            const updatedScores = [...prevScores];
-            const matchIndex = updatedScores.findIndex(score => score.match_id === match_id);
-            
-            if (matchIndex !== -1) {
-                updatedScores[matchIndex][type] = value;
-            } else {
-                updatedScores.push({
-                    match_id: match_id,
-                    home_team_id: team_id.home,
-                    home_score: type === 'home_score' ? value : null,
-                    away_team_id: team_id.away,
-                    away_score: type === 'away_score' ? value : null
-                });
-            }
-    
-            const homeScore = updatedScores.find(score => score.match_id === match_id)?.home_score;
-            const awayScore = updatedScores.find(score => score.match_id === match_id)?.away_score;
-    
-            if (homeScore !== null && awayScore !== null) {
-                // Chama updatedTable com os IDs corretos
-                updatedTable(team_id.home, team_id.away, homeScore, awayScore);
-            }
-
-            setScores(updatedScores);
-            return updatedScores;
-        });
-    };
-
     const handleScoreChange = (match_id, team, score, home_team_id, away_team_id) => {
-        const parsedScore = score.trim() === '' ? null : parseInt(score); 
-        const type = team === 'home' ? 'home_score' : 'away_score';
-        
-        // Atualiza os storedScores localmente
+        const parsedScore = score.trim() === '' ? null : parseInt(score);
+    
         setStoredScores(prevScores => ({
             ...prevScores,
             [match_id]: {
@@ -59,10 +27,36 @@ export default ({ round, setScores, updatedTable, setHighlightedTeams }) => {
                 [team]: parsedScore
             }
         }));
-
-        // Passa os IDs corretos para updateScores
-        updateScores(match_id, { home: home_team_id, away: away_team_id }, type, parsedScore);
-    };
+    
+        const updatedScores = {
+            ...storedScores[match_id],
+            [team]: parsedScore
+        };
+    
+        if (updatedScores.home !== undefined && updatedScores.home !== null && updatedScores.away !== undefined && updatedScores.away !== null) {
+            const previousScore = scores[match_id];
+    
+            // Remove o placar anterior se existir
+            if (previousScore) {
+                removeScore(match_id);
+            }
+    
+            // Atualiza o placar
+            setScores(prevScores => ({
+                ...prevScores,
+                [match_id]: {
+                    match_id: match_id,
+                    home_team_id: home_team_id,
+                    away_team_id: away_team_id,
+                    home_score: updatedScores.home,
+                    away_score: updatedScores.away
+                }
+            }));
+    
+            // Atualiza os times com o novo placar e subtrai o placar anterior
+            updateTeams(home_team_id, away_team_id, updatedScores.home, updatedScores.away, previousScore?.home_score, previousScore?.away_score);
+        }
+    };           
 
     const handleFocus = (home_team_id, away_team_id) => {
         // Destaca os times quando o input é focado
@@ -78,7 +72,7 @@ export default ({ round, setScores, updatedTable, setHighlightedTeams }) => {
         <>
             {filteredRound.map(match => (
                 <div key={match.match_id} className="border-top border-secondary p-3 d-flex align-items-center justify-content-between gap-2 games">
-                    {/*<p className="text-white">{match.match_id}</p>*/}
+                    <p className="text-white">{match.match_id}</p>
                     <div className="d-flex align-items-center justify-content-between gap-3 info-teams">
                         <img src={match.home_team_logo} alt={match.home_team_name} />
                         <p className="text-white fs-5 mb-0">{match.home_team_name}</p>
