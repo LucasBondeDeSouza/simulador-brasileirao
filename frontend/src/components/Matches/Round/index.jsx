@@ -14,7 +14,7 @@ export default ({ round, setRound }) => {
     }
 
     return (
-        <div className="d-flex align-items-center justify-content-between py-3 round">
+        <div className="d-flex align-items-center justify-content-around py-2 round">
             <button onClick={round == 1 ? null : removeRound} >
                 <FontAwesomeIcon 
                     icon={faArrowLeft} 
