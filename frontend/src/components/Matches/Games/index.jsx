@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, removeScore }) => {
+export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, removeScore, darkMode }) => {
     const [matches, setMatches] = useState([]);
     const [storedScores, setStoredScores] = useState({});
 
@@ -71,11 +71,11 @@ export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, re
     return (
         <>
             {filteredRound.map(match => (
-                <div key={match.match_id} className="border-top border-secondary p-3 d-flex align-items-center justify-content-between gap-2 games">
+                <div key={match.match_id} className={`${darkMode ? 'text-white games-dark border-secondary' : 'text-dark games-light'} border-top p-3 d-flex align-items-center justify-content-between gap-2 games`}>
                     {/*<p className="text-white">{match.match_id}</p>*/}
                     <div className="d-flex align-items-center justify-content-between gap-3 info-teams">
                         <img src={match.home_team_logo} alt={match.home_team_name} />
-                        <p className="text-white fs-5 mb-0">{match.home_team_name}</p>
+                        <p className="fs-5 mb-0">{match.home_team_name}</p>
                     </div>
 
                     <div className="d-flex align-items-center gap-2">
@@ -89,9 +89,9 @@ export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, re
                                 onFocus={() => handleFocus(match.home_team_id, match.away_team_id)} // Destaca ao focar
                                 onBlur={handleBlur} // Remove destaque ao desfocar
                             /> :
-                            <p className="text-white m-0 score">{match.home_score}</p>
+                            <p className="m-0 score">{match.home_score}</p>
                         }
-                        <p className="text-white fs-5 mb-0">X</p>
+                        <p className="fs-5 mb-0">X</p>
                         {
                             match.away_score == null ?
                             <input
@@ -102,12 +102,12 @@ export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, re
                                 onFocus={() => handleFocus(match.home_team_id, match.away_team_id)} // Destaca ao focar
                                 onBlur={handleBlur} // Remove destaque ao desfocar
                             /> :
-                            <p className="text-white m-0 score">{match.away_score}</p>
+                            <p className="m-0 score">{match.away_score}</p>
                         }
                     </div>
 
                     <div className="d-flex align-items-center justify-content-between gap-3 info-teams">
-                        <p className="text-white fs-5 mb-0">{match.away_team_name}</p>
+                        <p className="fs-5 mb-0">{match.away_team_name}</p>
                         <img src={match.away_team_logo} alt={match.away_team_name} />
                     </div>
                 </div>

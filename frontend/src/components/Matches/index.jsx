@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import Round from "./Round";
 import Games from "./Games";
 
-export default ({ setHighlightedTeams, setScores, scores, updateTeams, removeScore }) => {
+export default ({ setHighlightedTeams, setScores, scores, updateTeams, removeScore, darkMode }) => {
     const [round, setRound] = useState(31)
 
     return (
         <div className="col-12 col-lg-5">
-            <div className="card shadow p-3 mt-5">
-                <Round round={round} setRound={setRound} />
+            <div className={`card border-0 shadow p-3 mt-5 ${darkMode ? 'card-dark' : 'card-light'}`}>
+                <Round 
+                    round={round} 
+                    setRound={setRound}
+                    darkMode={darkMode}
+                />
+
                 <Games 
                     round={round} 
                     setHighlightedTeams={setHighlightedTeams} 
@@ -16,6 +21,7 @@ export default ({ setHighlightedTeams, setScores, scores, updateTeams, removeSco
                     scores={scores}
                     updateTeams={updateTeams}
                     removeScore={removeScore}
+                    darkMode={darkMode}
                 />
             </div>
         </div>

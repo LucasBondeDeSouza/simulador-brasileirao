@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from 'axios';
 
-export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }) => {
+export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams, darkMode }) => {
 
     const fetchStandings = () => {
         axios.get('https://simulador-server.vercel.app/api/standings')
@@ -51,11 +51,11 @@ export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }
                 </tr>
             </thead>
 
-            <tbody className="text-white">
+            <tbody className={`${darkMode ? 'text-white' : 'text-dark'}`}>
                 {filteredTeams.map((team, index) => (
                     <tr 
                         key={team.id} 
-                        className={highlightedTeams.includes(team.id) ? 'highlighted-row' : ''}
+                        className={highlightedTeams.includes(team.id) ? (darkMode ? 'highlighted-dark-row' : 'highlighted-light-row') : ''}
                     >
                         <td className={`${setColor(index)} text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
