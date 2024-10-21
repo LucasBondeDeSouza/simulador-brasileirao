@@ -46,6 +46,48 @@ tbody tr:hover {
     background-color: #151B23;
 }
 
+.color-libertadores {
+    color: #3BB552;
+}
+
+.color-qualificacao {
+    color: #80EA79;
+}
+
+.color-sulamericana {
+    color: #288EEA;
+}
+
+.color-rebaixamento {
+    color: #EF5158;
+}
+
+.info p {
+    font-size: .8rem;
+}
+
+.info-table {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+}
+
+.libertadores {
+    background-color: #3BB552;
+}
+
+.qualificacao {
+    background-color: #80EA79;
+}
+
+.sulamericana {
+    background-color: #288EEA;
+}
+
+.rebaixamento {
+    background-color: #EF5158;
+}
+
 .highlighted-row {
     background-color: rgba(67, 76, 100, 0.7);
 }
@@ -81,4 +123,10 @@ tbody tr:hover {
 .games input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none; 
     margin: 0; 
+}
+
+@media (min-width: 577px) {
+    .info p {
+        font-size: .9rem;
+    }
 }

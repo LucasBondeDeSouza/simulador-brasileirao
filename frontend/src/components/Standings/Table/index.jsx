@@ -22,6 +22,19 @@ export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }
         ? teams
         : teams.filter(team => team.conference === selectedOption);
 
+    const setColor = (index) => {
+        if (index < 4) {
+            return 'color-libertadores';
+        } else if (index < 6) {
+            return 'color-qualificacao';
+        } else if (index < 12) {
+            return 'color-sulamericana';
+        } else if (index >= 16 && index < 20) {
+            return 'color-rebaixamento';
+        }
+    };
+    
+
     return (
         <table className="my-2">
             <thead className="text-secondary fw-bold">
@@ -44,7 +57,7 @@ export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }
                         key={team.id} 
                         className={highlightedTeams.includes(team.id) ? 'highlighted-row' : ''}
                     >
-                        <td className={`${index < 4 ? 'text-success' : ''} ${index > 15 ? 'text-danger' : ''} text-center fw-bold`}>{index + 1}</td>
+                        <td className={`${setColor(index)} text-center fw-bold`}>{index + 1}</td>
                         <td colSpan="7">
                             <img src={team.logo_url} alt={`Logo ${team.name}`} />
                             {team.name}

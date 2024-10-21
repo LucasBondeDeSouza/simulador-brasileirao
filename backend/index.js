@@ -16,8 +16,6 @@ app.get('/api/standings', async (req, res) => {
             FROM teams
             INNER JOIN standings ON teams.id = standings.team_id
         `);
-
-        console.log(result.rows)
         res.json(result.rows);
     } catch (error) {
         console.error('Erro ao buscar os dados:', error);

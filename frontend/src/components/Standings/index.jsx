@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Table from "./Table";
+import InfoTable from "./InfoTable";
 import SelectTable from "./SelectTable";
 
 export default ({ sortTeams, teams, setTeams, highlightedTeams }) => {
@@ -10,6 +11,7 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams }) => {
             <div className="card shadow mt-5">
                 {/*<SelectTable selectedOption={selectedOption} setSelectedOption={setSelectedOption} />*/}
                 <Table sortTeams={sortTeams} selectedOption={selectedOption} teams={teams} setTeams={setTeams} highlightedTeams={highlightedTeams} /> 
+                <InfoTable />
             </div>
         </div>
     );

@@ -97,8 +97,19 @@ export default () => {
       <main className="min-vh-100">
         <div className="container">
           <div className="row">
-            <Standings sortTeams={sortTeams} teams={teams} setTeams={setTeams} highlightedTeams={highlightedTeams} />
-            <Matches setHighlightedTeams={setHighlightedTeams} setScores={setScores} scores={scores} updateTeams={updateTeams} removeScore={removeScore} />
+            <Standings 
+              sortTeams={sortTeams} 
+              teams={teams} setTeams={setTeams} 
+              highlightedTeams={highlightedTeams} 
+            />
+
+            <Matches 
+              setHighlightedTeams={setHighlightedTeams} 
+              setScores={setScores} 
+              scores={scores} 
+              updateTeams={updateTeams} 
+              removeScore={removeScore} 
+            />
           </div>
         </div>
       </main>
