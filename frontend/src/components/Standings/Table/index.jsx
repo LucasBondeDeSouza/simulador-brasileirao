@@ -4,7 +4,7 @@ import axios from 'axios';
 export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams }) => {
 
     const fetchStandings = () => {
-        axios.get('http://localhost:5000/api/standings')
+        axios.get('https://simulador-server.vercel.app/api/standings')
             .then(response => {
                 const sortedTeams = sortTeams(response.data);
                 setTeams(sortedTeams);

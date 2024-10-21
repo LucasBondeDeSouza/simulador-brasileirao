@@ -6,7 +6,7 @@ export default ({ round, setHighlightedTeams, setScores, scores, updateTeams, re
     const [storedScores, setStoredScores] = useState({});
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/matches')
+        axios.get('https://simulador-server.vercel.app/api/matches')
             .then(response => {
                 setMatches(response.data);
             })
