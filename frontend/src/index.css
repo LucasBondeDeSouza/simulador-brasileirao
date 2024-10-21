@@ -1,5 +1,5 @@
 header {
-    background: linear-gradient(45deg, #3C3B6E 50%, #B22234 50%);
+    background: linear-gradient(45deg, #009C3B 50%, #FFDF00 50%);
 }
 
 header img {
@@ -63,7 +63,7 @@ tbody tr:hover {
 }
 
 .info p {
-    font-size: .8rem;
+    font-size: .7rem;
 }
 
 .info-table {

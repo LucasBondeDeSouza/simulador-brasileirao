@@ -7,7 +7,7 @@ export default ({ setHighlightedTeams, setScores, scores, updateTeams, removeSco
 
     return (
         <div className="col-12 col-lg-5">
-            <div className="card shadow p-3 mt-5">
+            <div className="card shadow py-2 px-4 mt-5">
                 <Round round={round} setRound={setRound} />
                 <Games 
                     round={round} 

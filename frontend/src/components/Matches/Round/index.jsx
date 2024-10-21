@@ -14,7 +14,7 @@ export default ({ round, setRound }) => {
     }
 
     return (
-        <div className="d-flex align-items-center justify-content-around py-3 round">
+        <div className="d-flex align-items-center justify-content-between py-3 round">
             <button onClick={round == 1 ? null : removeRound} >
                 <FontAwesomeIcon 
                     icon={faArrowLeft} 
@@ -22,7 +22,7 @@ export default ({ round, setRound }) => {
                 />
             </button>
 
-            <h3 className="text-white text-center">Round {round > 0 && round < 10 ? `0${round}` : round}</h3>
+            <h3 className="text-white text-center">Rodada {round > 0 && round < 10 ? `0${round}` : round}</h3>
             
             <button onClick={round == 38 ? null : addRound} >
                 <FontAwesomeIcon 
