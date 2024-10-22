@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Table from "./Table";
 import InfoTable from "./InfoTable";
-import SelectTable from "./SelectTable";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
-    const [selectedOption, setSelectedOption] = useState('MLS');
     const [hideTable, setHideTable] = useState(false)
 
     const toggleHidden = () => {
@@ -23,9 +21,9 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
                 </button>
                 <div className={`${hideTable ? 'hide-table' : ''}`}>
                     <Table 
-                        sortTeams={sortTeams} 
-                        selectedOption={selectedOption} 
-                        teams={teams} setTeams={setTeams} 
+                        sortTeams={sortTeams}
+                        teams={teams} 
+                        setTeams={setTeams} 
                         highlightedTeams={highlightedTeams}
                         darkMode={darkMode}
                     /> 

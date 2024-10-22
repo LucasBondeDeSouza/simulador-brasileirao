@@ -6,6 +6,13 @@ header img {
     height: 3.5em;
 }
 
+.btn-dark-mode {
+    bottom: 20px; 
+    right: 20px;
+    height: 40px;
+    width: 40px;
+}
+
 .background-dark {
     background-color: #0F151B;
 }
@@ -20,10 +27,6 @@ header img {
 
 .container .card-light {
     background-color: #fff;
-}
-
-.dropdown img {
-    height: 1.5em;
 }
 
 .hide-table {

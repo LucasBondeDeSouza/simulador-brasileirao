@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from 'axios';
 
-export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams, darkMode }) => {
+export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
 
     const fetchStandings = () => {
         axios.get('https://simulador-server.vercel.app/api/standings')
@@ -17,10 +17,6 @@ export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams, 
     useEffect(() => {
         fetchStandings();
     }, []);
-
-    const filteredTeams = selectedOption === 'MLS'
-        ? teams
-        : teams.filter(team => team.conference === selectedOption);
 
     const setColor = (index) => {
         if (index < 4) {
@@ -52,7 +48,7 @@ export default ({ sortTeams, selectedOption, teams, setTeams, highlightedTeams, 
             </thead>
 
             <tbody className={`${darkMode ? 'text-white' : 'text-dark'}`}>
-                {filteredTeams.map((team, index) => (
+                {teams.map((team, index) => (
                     <tr 
                         key={team.id} 
                         className={highlightedTeams.includes(team.id) ? (darkMode ? 'highlighted-dark-row' : 'highlighted-light-row') : ''}
