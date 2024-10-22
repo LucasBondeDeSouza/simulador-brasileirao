@@ -7,7 +7,7 @@ header img {
 }
 
 .btn-dark-mode {
-    bottom: 20px; 
+    bottom: 20px;
     right: 20px;
     height: 40px;
     width: 40px;
@@ -44,7 +44,8 @@ table img {
     margin-right: 10px;
 }
 
-thead th, tbody td {
+thead th,
+tbody td {
     padding-inline: 8px;
     padding-block: 5px;
 }
@@ -132,16 +133,17 @@ tbody tr {
     height: 2.5em;
 }
 
-.score, .games input {
+.score,
+.games input {
     font-size: 1.5rem;
 }
 
 .games input {
-    border: none; 
+    border: none;
     border-radius: 5px;
     width: 30px;
     height: 35px;
-    text-align: center; 
+    text-align: center;
 }
 
 .games-dark input {
@@ -154,10 +156,10 @@ tbody tr {
     color: #333;
 }
 
-.games input[type=number]::-webkit-inner-spin-button, 
-.games input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
+.games input[type=number]::-webkit-inner-spin-button,
+.games input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 @media (min-width: 577px) {
