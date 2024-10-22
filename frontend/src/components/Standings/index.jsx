@@ -14,7 +14,7 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
 
     return (
         <div className="col-12 col-lg-7">
-            <div className={`card shadow border-0 mt-5 ${darkMode ? 'card-dark' : 'card-light'}`}>
+            <div className={`card shadow border-0 my-5 ${darkMode ? 'card-dark' : 'card-light'}`}>
                 {/*<SelectTable selectedOption={selectedOption} setSelectedOption={setSelectedOption} />*/}
                 <button className="btn btn-primary col-1 m-4 mb-2 d-flex justify-content-center" onClick={toggleHidden}>
                     {hideTable ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
