@@ -7,7 +7,7 @@ export default () => {
   const [teams, setTeams] = useState([]); // Lista de times
   const [scores, setScores] = useState([]); // Placar das partidas
   const [highlightedTeams, setHighlightedTeams] = useState([]);
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
 
   const sortTeams = (teams) => {
     return teams.sort((a, b) => {
