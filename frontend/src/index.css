@@ -27,7 +27,7 @@ header img {
 }
 
 .hide-table {
-    filter: blur(12px);
+    filter: blur(15px);
 }
 
 .container .card .table p {
