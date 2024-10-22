@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Standings from "./components/Standings";
 import Matches from "./components/Matches";
+import ButtonDarkMode from "./components/ButtonDarkMode";
 
 export default () => {
   const [teams, setTeams] = useState([]); // Lista de times
@@ -97,7 +98,8 @@ export default () => {
 
   return (
     <>
-      <Header toggleDarkMode={toggleDarkMode} />
+      <Header />
+      <ButtonDarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
 
       <main className={`min-vh-100 ${darkMode ? 'background-dark' : 'background-light'}`}>
         <div className="container">
