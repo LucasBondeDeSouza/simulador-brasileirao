@@ -7,7 +7,11 @@ export default () => {
   const [teams, setTeams] = useState([]); // Lista de times
   const [scores, setScores] = useState([]); // Placar das partidas
   const [highlightedTeams, setHighlightedTeams] = useState([]);
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+  }
 
   const sortTeams = (teams) => {
     return teams.sort((a, b) => {
@@ -93,7 +97,7 @@ export default () => {
 
   return (
     <>
-      <Header />
+      <Header toggleDarkMode={toggleDarkMode} />
 
       <main className={`min-vh-100 ${darkMode ? 'background-dark' : 'background-light'}`}>
         <div className="container">

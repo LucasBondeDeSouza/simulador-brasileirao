@@ -26,6 +26,10 @@ header img {
     height: 1.5em;
 }
 
+.hide-table {
+    filter: blur(12px);
+}
+
 .container .card .table p {
     margin: 0;
     padding: 0;
