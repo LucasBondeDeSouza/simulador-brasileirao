@@ -21,16 +21,16 @@ header img {
     background-color: #EDF1F6;
 }
 
-.container .card-dark {
+.container .card-dark, .footer-dark {
     background-color: #1C2632;
 }
 
-.container .card-light {
+.container .card-light, .footer-light {
     background-color: #fff;
 }
 
 .hide-table {
-    filter: blur(15px);
+    filter: blur(50px);
 }
 
 .container .card .table p {

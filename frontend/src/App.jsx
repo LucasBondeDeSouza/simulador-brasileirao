@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Standings from "./components/Standings";
 import Matches from "./components/Matches";
 import ButtonDarkMode from "./components/ButtonDarkMode";
+import Footer from "./components/Footer";
 
 export default () => {
   const [teams, setTeams] = useState([]); // Lista de times
@@ -101,7 +102,7 @@ export default () => {
       <Header />
       <ButtonDarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
 
-      <main className={`min-vh-100 ${darkMode ? 'background-dark' : 'background-light'}`}>
+      <main className={`min-vh-100 ${darkMode ? 'background-dark' : 'background-light'} pb-5`}>
         <div className="container">
           <div className="row">
             <Standings 
@@ -122,6 +123,8 @@ export default () => {
           </div>
         </div>
       </main>
+
+      <Footer darkMode={darkMode} />
     </>
   );
 };
