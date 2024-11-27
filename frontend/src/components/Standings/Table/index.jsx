@@ -23,7 +23,7 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
             return 'color-libertadores';
         } else if (index < 6) {
             return 'color-qualificacao';
-        } else if (index < 12) {
+        } else if (index < 13) {
             return 'color-sulamericana';
         } else if (index >= 16 && index < 20) {
             return 'color-rebaixamento';
