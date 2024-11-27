@@ -64,7 +64,7 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
                         <td className="text-center d-none d-sm-table-cell">{team.losses}</td>
                         <td className="text-center d-none d-sm-table-cell">{team.goals_for}:{team.goals_against}</td>
                         <td className="text-center d-table-cell d-sm-none">{team.goal_difference}</td>
-                        <td className="text-center">{team.points}</td>
+                        <td className="text-center fw-bold">{team.points}</td>
                     </tr>
                 ))}
             </tbody>
