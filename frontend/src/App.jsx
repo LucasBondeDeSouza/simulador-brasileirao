@@ -38,6 +38,7 @@ export default () => {
               ...team,
               games: team.games - 1,
               wins: prevHomeScore > prevAwayScore ? team.wins - 1 : team.wins,
+              losses: prevHomeScore < prevAwayScore ? team.losses - 1 : team.losses,
               draws: prevHomeScore === prevAwayScore ? team.draws - 1 : team.draws,
               goals_for: team.goals_for - prevHomeScore,
               goals_against: team.goals_against - prevAwayScore,
@@ -49,6 +50,7 @@ export default () => {
               ...team,
               games: team.games - 1,
               wins: prevAwayScore > prevHomeScore ? team.wins - 1 : team.wins,
+              losses: prevAwayScore < prevHomeScore ? team.losses - 1 : team.losses,
               draws: prevHomeScore === prevAwayScore ? team.draws - 1 : team.draws,
               goals_for: team.goals_for - prevAwayScore,
               goals_against: team.goals_against - prevHomeScore,
@@ -64,12 +66,14 @@ export default () => {
           const teamGoalsAgainst = isHomeTeam ? awayScore : homeScore;
           const isWinner = homeScore > awayScore ? isHomeTeam : awayScore > homeScore ? isAwayTeam : false;
           const isDraw = homeScore === awayScore;
+          const isLoser = !isWinner && !isDraw;
           const teamPoints = isWinner ? 3 : isDraw ? 1 : 0;
   
           return {
             ...team,
             games: team.games + 1,
             wins: isWinner ? team.wins + 1 : team.wins,
+            losses: isLoser ? team.losses + 1 : team.losses,
             draws: isDraw ? team.draws + 1 : team.draws,
             goals_for: team.goals_for + teamGoalsFor,
             goals_against: team.goals_against + teamGoalsAgainst,
@@ -83,7 +87,7 @@ export default () => {
   
       return sortTeams(updatedTeams);
     });
-  };
+  };  
 
   const removeScore = (match_id) => {
     setScores(prevScores => {
