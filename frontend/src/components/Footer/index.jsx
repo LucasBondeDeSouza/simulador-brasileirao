@@ -26,7 +26,7 @@ export default ({ darkMode }) => {
                         </a>
                     </li>
                     <li className="ms-3">
-                        <a class={`${darkMode ? 'text-light' : 'text-dark'} fs-4`} href="https://portfolio-lucas-red.vercel.app/" target='_blank'>
+                        <a class={`${darkMode ? 'text-light' : 'text-dark'} fs-4`} href="https://lucasbonde.vercel.app/" target='_blank'>
                             <FontAwesomeIcon icon={faBriefcase} />
                         </a>
                     </li>
