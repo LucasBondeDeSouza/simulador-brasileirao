@@ -19,11 +19,11 @@ export default ({ sortTeams, teams, setTeams, highlightedTeams, darkMode }) => {
     }, []);
 
     const setColor = (index) => {
-        if (index < 6) {
+        if (index < 4) {
             return 'color-libertadores';
-        } else if (index < 8) {
+        } else if (index < 6) {
             return 'color-qualificacao';
-        } else if (index < 14) {
+        } else if (index < 12) {
             return 'color-sulamericana';
         } else if (index >= 16 && index < 20) {
             return 'color-rebaixamento';
