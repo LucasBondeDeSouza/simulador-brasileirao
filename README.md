@@ -2,7 +2,7 @@
 
 Simule partidas do **Campeonato Brasileiro Série A** com placares personalizados e veja em tempo real como os resultados afetam a tabela de classificação!
 
-![screenshot](https://raw.githubusercontent.com/LucasBondeDeSouza/simulador-brasileirao/main/public/screenshot.png)
+![screenshot](preview.png)
 
 ## 📌 Funcionalidades
 
