@@ -23,3 +23,32 @@ Simule partidas do **Campeonato Brasileiro Série A** com placares personalizado
 - **Node.js**
 - **Express**
 - **PostgreSQL**
+
+
+## 📦 Como executar o projeto localmente
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/LucasBondeDeSouza/simulador-brasileirao.git
+cd simulador-brasileirao
+```
+
+### 2. Instale as Dependências
+
+```bash
+cd ../frontend
+npm install
+```
+
+### 3. Inicie os servidores
+
+```bash
+npm run dev
+```
+
+### 4. Acesse no navegador
+
+```bash
+http://localhost:3000
+```
