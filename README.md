@@ -41,7 +41,7 @@ cd ../frontend
 npm install
 ```
 
-### 3. Inicie os servidores
+### 3. Inicie o servidor
 
 ```bash
 npm run dev
@@ -50,5 +50,5 @@ npm run dev
 ### 4. Acesse no navegador
 
 ```bash
-http://localhost:3000
+http://localhost:5173/
 ```
